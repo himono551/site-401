@@ -29,4 +29,3 @@ Font memo
 archiveに日時順に並べ替える仕組みを組み込みたい
 Post.cssの日付のフォントをDotGothicにしたい	
 
------- coming soon ------
