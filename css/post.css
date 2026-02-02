@@ -1,0 +1,163 @@
+/* 個別記事ページ専用のスタイル */
+
+.site-title a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.site-title a:hover {
+    opacity: 0.7;
+}
+
+/* 記事コンテンツ */
+.post-content {
+    max-width: 800px;
+    /* animation を無効化（即時表示） */
+    /* animation: fadeIn 0.4s ease; */
+}
+
+.post-header {
+    margin-bottom: 40px;
+}
+
+.post-header .post-date {
+    display: block;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    color: var(--date-color);
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.post-title-single {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--date-color); /* 変更: var(--link-color) -> var(--text-color) */
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+}
+
+/* 記事本文 */
+.post-body {
+    margin-bottom: 60px;
+}
+
+.post-body p {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 1.5em;
+}
+
+.post-body h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 20px;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    text-transform: lowercase;
+}
+
+.post-body h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 18px;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    text-transform: lowercase;
+}
+
+.post-body ul,
+.post-body ol {
+    margin-left: 2em;
+    margin-bottom: 1.5em;
+}
+
+.post-body li {
+    margin-bottom: 0.5em;
+}
+
+.post-body code {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.post-body pre {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 1.5em;
+}
+
+.post-body pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.post-body blockquote {
+    border-left: 3px solid var(--link-color);
+    padding-left: 20px;
+    margin: 1.5em 0;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.post-body a {
+    color: var(--link-color);
+    text-decoration: underline;
+    /* transition を無効化（即時切替） */
+    /* transition: color 0.2s ease; */
+}
+
+.post-body a:hover {
+    color: var(--link-hover);
+}
+
+.post-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 2em 0;
+}
+
+/* フッター */
+.post-footer {
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+}
+
+.back-link {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    color: var(--text-color);
+    text-decoration: none;
+    display: inline-block;
+    /* transition を無効化（即時切替） */
+    /* transition: opacity 0.2s ease; */
+}
+
+.back-link:hover {
+    opacity: 0.7;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .post-title-single {
+        font-size: 22px;
+    }
+
+    .post-body p {
+        font-size: 15px;
+    }
+
+    .post-body h2 {
+        font-size: 18px;
+    }
+
+    .post-body h3 {
+        font-size: 16px;
+    }
+}
