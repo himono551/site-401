@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Press Start 2P フォント */
+
+:root {
+    --bg-color: #3a3a3a;
+    --text-color: #ffffff;
+    --link-hover: #6ab4ff;
+    --border-color: #666666;
+    --date-color: #cccccc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'DotGothic16', sans-serif;
+    line-height: 1.8;
+    padding: 40px 200px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    margin-bottom: 60px;
+}
+
+.site-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+}
+
+/* Navigation */
+nav ul {
+    display: flex;
+    gap: 48px; /* 80px -> 48px に縮小 */
+    list-style: none;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* はみ出す場合に折り返す */
+    align-items: center;
+}
+
+nav a {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 18px; /* 20px -> 18px に縮小 */
+    color: var(--text-color);
+    text-decoration: none;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    padding: 6px 8px; /* 余白を明示してクリック領域を確保 */
+    /* transition を無効化（即時切り替え） */
+    /* transition: opacity 0.2s ease; */
+}
+
+nav a:hover {
+    /* 即時で反映するように transition を削除 */
+    opacity: 0.7;
+}
+
+nav a.active {
+    text-decoration: underline;
+}
+
+.header-line {
+    height: 2px;
+    background-color: var(--border-color);
+    width: 100%;
+}
+
+/* Main Content */
+main {
+    margin-top: 40px;
+}
+
+.posts-section,
+.content-section {
+    animation: fadeIn 0.4s ease;
+}
+
+/* Post Items */
+.post-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 40px;
+    margin-bottom: 30px;
+    align-items: start;
+}
+
+.post-date {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    color: var(--date-color);
+    letter-spacing: 1px;
+}
+
+.post-title {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.post-title a {
+    font-family: 'DotGothic16', sans-serif;
+    color: var(--text-color);
+    text-decoration: none;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    /* transition を無効化（即時で色が変わる） */
+    /* transition: color 0.2s ease; */
+}
+
+.post-title a:hover {
+    color: #0049ff;
+    text-decoration: underline;
+}
+
+.post-excerpt {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+/* Content Sections */
+.content-section h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: lowercase;
+}
+
+.content-section p {
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 30px 15px;
+    }
+
+    .site-title {
+        font-size: 36px;
+    }
+
+    nav ul {
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        font-size: 16px;
+    }
+
+    .post-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .post-date {
+        font-size: 14px;
+    }
+
+    .post-title {
+        font-size: 16px;
+    }
+
+    .post-excerpt {
+        font-size: 14px;
+    }
+}
+
+/* ビューポート幅に応じてさらに調整 */
+@media (max-width: 1200px) {
+    body {
+        padding: 40px 80px; /* 横余白を縮小して収める */
+    }
+    nav ul {
+        gap: 36px;
+    }
+    nav a {
+        font-size: 16px;
+        padding: 5px 6px;
+    }
+}
+
+@media (max-width: 1000px) {
+    body {
+        padding: 30px 40px;
+    }
+    nav ul {
+        gap: 24px;
+    }
+    nav a {
+        font-size: 15px;
+    }
+}
+
+/* 印刷対応 */
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+
+    .header-line {
+        background-color: black;
+    }
+}
