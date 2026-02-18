@@ -1,13 +1,11 @@
-/* Press Start 2P は Typekit (https://use.typekit.net/hoj8qmh.css) で読み込みます */
-
-/* Press Start 2P フォント */
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 
 :root {
     --bg-color: #3a3a3a;
-    --text-color: #ffffff;
-    --link-hover: #6ab4ff;
+    --text-color: #cccccc;
+    --link-hover: #2693ff;
     --border-color: #666666;
-    --date-color: #cccccc;
+    --date-color: #b5b5b5;
 }
 
 * {
@@ -16,23 +14,32 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'DotGothic16', sans-serif;
     line-height: 1.8;
     padding: 40px 200px;
-    max-width: 1600px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 /* Header */
 header {
-    margin-bottom: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background-color: var(--bg-color);
+    margin: 0px -40px 0px 20px;
+    padding: 10px 0 6px;
 }
 
 .site-title {
-    font-family: "bitcount-mono-single-square", sans-serif;
+    font-family: 'bitcount-mono-single-square', 'Bitcount Mono Single Square', monospace;
     font-size: 48px;
     line-height: 1;
     margin-bottom: 40px;
@@ -40,30 +47,34 @@ header {
     text-transform: lowercase;
 }
 
+.header-line {
+    height: 2px;
+    width: 100%;
+    background-color: var(--border-color);
+}
+
 /* Navigation */
 nav ul {
     display: flex;
-    gap: 48px; /* 80px -> 48px に縮小 */
+    gap: 48px;
     list-style: none;
     margin-bottom: 30px;
-    flex-wrap: wrap; /* はみ出す場合に折り返す */
+    flex-wrap: wrap;
     align-items: center;
 }
 
 nav a {
-    font-family: "bitcount-mono-single-square", sans-serif;
-    font-size: 18px; /* 20px -> 18px に縮小 */
+    font-family: 'bitcount-mono-single-square', 'Bitcount Mono Single Square', monospace;
+    font-size: 18px;
     color: var(--text-color);
     text-decoration: none;
     text-transform: lowercase;
     letter-spacing: 1px;
-    padding: 6px 8px; /* 余白を明示してクリック領域を確保 */
-    /* transition を無効化（即時切り替え） */
-    /* transition: opacity 0.2s ease; */
+    padding: 6px 8px;
+    cursor: pointer;
 }
 
 nav a:hover {
-    /* 即時で反映するように transition を削除 */
     opacity: 0.7;
 }
 
@@ -71,81 +82,205 @@ nav a.active {
     text-decoration: underline;
 }
 
-.header-line {
-    height: 2px;
-    background-color: var(--border-color);
-    width: 100%;
-}
-
-/* Main Content */
+/* Main */
 main {
     margin-top: 40px;
 }
 
 .posts-section,
-.content-section {
+#posts-list,
+.about-section,
+.contact-section {
+    display: block;
+    margin-bottom: 40px;
+    padding: 18px 20px;
+    scroll-margin-top: 80px;
     animation: fadeIn 0.4s ease;
+}
+
+.posts-section:target,
+#posts-list:target,
+.about-section:target,
+.contact-section:target {
+    outline: 2px solid var(--link-hover);
+    background-color: rgba(106, 180, 255, 0.04);
+}
+
+.about-section h2,
+.contact-section h2 {
+    font-family: 'bitcount-mono-single-square', 'Bitcount Mono Single Square', monospace;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: lowercase;
+}
+
+.about-section p,
+.contact-section p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.contact-list {
+    list-style: none;
+    margin-top: 8px;
+}
+
+.contact-list li {
+    font-size: 16px;
+    line-height: 1.8;
 }
 
 /* Post Items */
 .post-item {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 40px;
+    display: block;
+    padding: 20px 0;
     margin-bottom: 30px;
-    align-items: start;
+}
+
+.post-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 8px 10px;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.post-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.post-left {
+    min-width: 30%;
+    max-width: 30%;
+}
+
+.post-right {
+    flex: 1;
 }
 
 .post-date {
-    font-family: 'DotGothic16', sans-serif;
     font-size: 16px;
     color: var(--date-color);
     letter-spacing: 1px;
 }
 
 .post-title {
-    font-family: 'DotGothic16', sans-serif;
     font-size: 18px;
     font-weight: 400;
     margin: 0;
 }
 
-.post-title a {
-    font-family: 'DotGothic16', sans-serif;
-    color: var(--text-color);
-    text-decoration: none;
-    text-transform: lowercase;
-    letter-spacing: 1px;
-    /* transition を無効化（即時で色が変わる） */
-    /* transition: color 0.2s ease; */
+
+
+.post-card-link:hover .post-title,
+.post-card-link:focus-visible .post-title {
+    color: #5b89ff;
 }
 
-.post-title a:hover {
-    color: #0049ff;
-    text-decoration: underline;
+.post-card-link:hover .post-title,
+.post-card-link:hover .post-date,
+.post-card-link:hover .post-excerpt,
+.post-card-link:focus-visible .post-title,
+.post-card-link:focus-visible .post-date,
+.post-card-link:focus-visible .post-excerpt {
+    color: #5b89ff;
+    text-decoration-line: line-through;
+    text-decoration-color: #5b89ff;
+    text-decoration-thickness: 1px;
+    text-decoration-skip-ink: none;
 }
 
 .post-excerpt {
-    font-family: 'DotGothic16', sans-serif;
+    margin: 0;
     font-size: 16px;
     line-height: 1.8;
     color: var(--text-color);
 }
 
-/* Content Sections */
-.content-section h2 {
-    font-family: "bitcount-mono-single-square", sans-serif;
-    font-size: 24px;
+.article-meta {
     margin-bottom: 20px;
-    text-transform: lowercase;
 }
 
-.content-section p {
-    font-size: 16px;
-    line-height: 1.8;
+.article-meta .post-item {
+    padding: 0;
+    margin-bottom: 0;
 }
 
-/* Responsive Design */
+.article-meta .post-left {
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.article-meta .post-date {
+    display: block;
+}
+
+.article-footer-nav {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.article-nav-link {
+    font-family: 'DotGothic16', sans-serif;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.article-nav-link:hover {
+    text-decoration: underline;
+    color: var(--link-hover);
+}
+
+.article-nav-link.back {
+    margin-bottom: 4px;
+}
+
+.article-nav-link.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    /* body {
+        padding: 40px 80px;
+    }*/
+
+    nav ul {
+        gap: 36px;
+    }
+
+    nav a {
+        font-size: 16px;
+        padding: 5px 6px;
+    }
+}
+
+@media (max-width: 1000px) {
+    body {
+        padding: 40px 80px;
+    }
+
+    nav ul {
+        gap: 24px;
+    }
+
+    nav a {
+        font-size: 15px;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         padding: 30px 15px;
@@ -157,16 +292,10 @@ main {
 
     nav ul {
         gap: 30px;
-        flex-wrap: wrap;
     }
 
     nav a {
         font-size: 16px;
-    }
-
-    .post-item {
-        grid-template-columns: 1fr;
-        gap: 10px;
     }
 
     .post-date {
@@ -182,33 +311,17 @@ main {
     }
 }
 
-/* ビューポート幅に応じてさらに調整 */
-@media (max-width: 1200px) {
-    body {
-        padding: 40px 80px; /* 横余白を縮小して収める */
+@media (max-width: 600px) {
+    .post-inner {
+        flex-direction: column;
     }
-    nav ul {
-        gap: 36px;
-    }
-    nav a {
-        font-size: 16px;
-        padding: 5px 6px;
+
+    .post-left {
+        max-width: 100%;
     }
 }
 
-@media (max-width: 1000px) {
-    body {
-        padding: 30px 40px;
-    }
-    nav ul {
-        gap: 24px;
-    }
-    nav a {
-        font-size: 15px;
-    }
-}
-
-/* 印刷対応 */
+/* Print */
 @media print {
     body {
         background-color: white;

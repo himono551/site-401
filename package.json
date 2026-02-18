@@ -1,0 +1,12 @@
+{
+  "name": "site-401",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static blog tooling for converting markdown posts to HTML.",
+  "scripts": {
+    "build:posts": "node legacy/scripts/build-posts.js",
+    "build:journal": "node scripts/build-from-journal.mjs",
+    "build:journal:published": "node scripts/build-from-journal.mjs --require-publish",
+    "build:journal:with-frontmatter": "node scripts/build-from-journal.mjs --with-frontmatter"
+  }
+}

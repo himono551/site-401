@@ -1,66 +1,85 @@
-// ナビゲーション機能
-document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('nav a');
-    const sections = document.querySelectorAll('main section');
+document.addEventListener('DOMContentLoaded', () => {
+    // ヘッダー下のラインを追加（css の .header-line 用）
+    const header = document.querySelector('header');
+    if (header && !document.querySelector('.header-line')) {
+        const line = document.createElement('div');
+        line.className = 'header-line';
+        header.after(line);
+    }
 
-    // 初期状態: homeを表示
-    showSection('home');
+    // ナビの active を現在ページに合わせて設定
+    const navLinks = Array.from(document.querySelectorAll('nav a'));
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
 
-    // ナビゲーションリンクのクリックイベント
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // アクティブなリンクのスタイルを更新
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+    function markActiveLink(link) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        if (link) {
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+        }
+    }
 
-            // 対応するセクションを表示
-            const targetId = this.getAttribute('href').substring(1);
-            showSection(targetId);
-        });
+    // 初期判定
+    let foundActive = false;
+    navLinks.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        const hrefFile = href.split('#')[0].split('/').pop() || 'index.html';
+        if (hrefFile === currentFile) {
+            a.classList.add('active');
+            a.setAttribute('aria-current', 'page');
+            foundActive = true;
+        } else {
+            a.classList.remove('active');
+            a.removeAttribute('aria-current');
+        }
     });
+    if (!foundActive) {
+        // デフォルトで最初のリンクに active を付ける（保険）
+        if (navLinks[0]) markActiveLink(navLinks[0]);
+    }
 
-    // セクション表示関数
-    function showSection(sectionId) {
-        sections.forEach(section => {
-            if (section.id === sectionId) {
-                section.style.display = 'block';
+    // クリック時の振る舞い（同ページアンカーはスムーズスクロール、他ページは通常遷移）
+    navLinks.forEach(a => {
+        a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href') || '';
+            // 純粋なハッシュリンク (#about など)
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    history.replaceState(null, '', href);
+                    markActiveLink(a);
+                }
+                return;
+            }
+
+            // 同一ファイル内のアンカー（index.html#about 等）
+            const [filePart, hashPart] = href.split('#');
+            const linkFile = filePart.split('/').pop() || 'index.html';
+            if (linkFile === currentFile && hashPart) {
+                e.preventDefault();
+                const target = document.getElementById(hashPart);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    history.replaceState(null, '', '#' + hashPart);
+                    markActiveLink(a);
+                }
             } else {
-                section.style.display = 'none';
-            }
-        });
-
-        // URLハッシュを更新（ブラウザの戻る/進むボタンに対応）
-        window.location.hash = sectionId;
-    }
-
-    // ページロード時にURLハッシュがある場合、そのセクションを表示
-    if (window.location.hash) {
-        const hashSection = window.location.hash.substring(1);
-        showSection(hashSection);
-        
-        // 対応するナビリンクをアクティブに
-        navLinks.forEach(link => {
-            if (link.getAttribute('href') === '#' + hashSection) {
-                link.classList.add('active');
-            }
-        });
-    } else {
-        // デフォルトでhomeをアクティブに
-        navLinks[0].classList.add('active');
-    }
-
-    // ブラウザの戻る/進むボタンに対応
-    window.addEventListener('hashchange', function() {
-        const currentHash = window.location.hash.substring(1) || 'home';
-        showSection(currentHash);
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + currentHash) {
-                link.classList.add('active');
+                // 別ページへのリンクは active を一時的に反映（ページ遷移時に再評価される）
+                markActiveLink(a);
             }
         });
     });
+
+    // ページ読み込み時にハッシュがあればスムーズスクロール（外部からのリンク対応）
+    if (location.hash) {
+        const target = document.querySelector(location.hash);
+        if (target) {
+            // 少し遅延してスクロール（レイアウト安定後）
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
+    }
 });
